@@ -18,10 +18,10 @@
  * @varsion		2.0.0
  */
 
-namespace ickx\fw2\mvc\app\controllers\interfaces;
+namespace ickx\fw2\mvc\app\recd\validation_rule;
 
 /**
- * Flywheel2 コントローラインターフェースです。
+ * お薦め設定
  *
  * @category	Flywheel2
  * @package		mvc
@@ -29,20 +29,15 @@ namespace ickx\fw2\mvc\app\controllers\interfaces;
  * @license		http://opensource.org/licenses/MIT The MIT License MIT
  * @varsion		2.0.0
  */
-interface IController {
-	const NEXT_RENDERING	= 'NEXT_RENDERING';
-	const NEXT_REDIRECT		= 'NEXT_REDIRECT';
-	const NEXT_FORWARD		= 'NEXT_FORWARD';
-	const NEXT_CALLER		= 'NEXT_CALLER';
+class ValidationRule {
+	protected static $_form	= [];
 
-	const DEFAULT_CONTROLLER	= 'index';
-	const DEFAULT_ACTION		= 'index';
-	const DEFAULT_NEXT_NAME		= 0;
-
-	const SAFIX_APPSETUP	= 'AppSetup';
-	const SAFIX_SETUP		= 'Setup';
-	const SAFIX_VALIDATE	= 'Validate';
-	const SAFIX_ACTION		= 'Action';
-	const SAFIX_Rule		= 'Rule';
-	const SAFIX_RENDER		= 'Render';
+	/**
+	 * HTML Form用のお薦め設定を返します。
+	 *
+	 * @return	array	HTML Form用のお薦め設定
+	 */
+	public function form ($form_rule_class = FormValidation::class) {
+		return static::$_form[$form_rule_class] ?? static::$_form[$form_rule_class] = new $form_rule_class();
+	}
 }
